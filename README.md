@@ -10,11 +10,11 @@ Hashmap<Integer, HashMap<String, Team>>
 
     
 Things to do:
-- normalize data
-    - pick training and testing data
-    - pick 10 chunks and store them in hashmap
-    - write the error calculation method for each chunk
-    - calculate average errors for chunks on a specific k
+- normalize data (liam)
+    - pick training and testing data (jamie)
+    - pick 10 chunks and store them in hashmap (jamie)
+    - write the error calculation method for each chunk (jeremy)
+    - calculate average errors for chunks on a specific k 
     - iterate over k
     - after iterating over all k,find lowest error and pick that k
     - testing data calculations
