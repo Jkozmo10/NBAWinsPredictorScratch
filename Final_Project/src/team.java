@@ -49,6 +49,23 @@ public class team {
         );
         return distance;
     }
+    public double calculateL1Distance(team otherTeam) {
+        double distance = Math.sqrt(
+                Math.abs(this.playoffs - otherTeam.getPlayoffs()) +
+                        Math.abs(this.wins - otherTeam.getWins()) +
+                        Math.abs(this.losses - otherTeam.getLosses()) +
+                        Math.abs(this.avgFgPercent - otherTeam.getAvgFgPercent()) +
+                        Math.abs(this.avgX3pPercent - otherTeam.getAvgX3pPercent()) +
+                        Math.abs(this.avgFtPercent - otherTeam.getAvgFtPercent()) +
+                        Math.abs(this.avgTrbPerGame - otherTeam.getAvgTrbPerGame()) +
+                        Math.abs(this.avgAstPerGame - otherTeam.getAvgAstPerGame()) +
+                        Math.abs(this.avgStlPerGame - otherTeam.getAvgStlPerGame()) +
+                        Math.abs(this.avgBlkPerGame - otherTeam.getAvgBlkPerGame()) +
+                        Math.abs(this.avgTovPerGame - otherTeam.getAvgTovPerGame()) +
+                        Math.abs(this.avgPtsPerGame - otherTeam.getAvgPtsPerGame())
+        );
+        return distance;
+    }
 
 
     // getters and setters for all attributes
@@ -71,10 +88,6 @@ public class team {
                 ", avgTovPerGame=" + avgTovPerGame +
                 ", avgPtsPerGame=" + avgPtsPerGame +
                 '}';
-    }
-
-    public String getSeason() {
-        return season;
     }
 
     public String getAbbreviation() {
