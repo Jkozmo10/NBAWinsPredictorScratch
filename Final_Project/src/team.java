@@ -95,7 +95,6 @@ public class team {
         if(attribute.equals("avgPtsPerGame")){
             this.avgPtsPerGame = (this.avgPtsPerGame - mean) / std;
         }
-
     }
 
 
