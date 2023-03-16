@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -6,7 +7,7 @@ public class main {
     private static HashMap<Integer, HashMap<String, team>> data = new HashMap<>();
 
     public static void main(String[] args) {
-        process("data.csv");
+        process("Final_Project/data.csv");
     }
     public static void process(String filename) {
         try {
@@ -54,5 +55,30 @@ public class main {
         }
     }
 
+
+    public static double calculateStdDev(ArrayList<Double> values) {
+        int n = values.size();
+        if (n < 2) {
+            throw new IllegalArgumentException("List must contain at least two values.");
+        }
+
+        // Calculate the mean of the values
+        double sum = 0.0;
+        for (double val : values) {
+            sum += val;
+        }
+        double mean = sum / n;
+
+        // Calculate the sum of the squared differences from the mean
+        double squaredDiffsSum = 0.0;
+        for (double val : values) {
+            double diff = val - mean;
+            squaredDiffsSum += diff * diff;
+        }
+        double variance = squaredDiffsSum / (n - 1);
+        double stdDev = Math.sqrt(variance);
+
+        return stdDev;
+    }
 
 }
