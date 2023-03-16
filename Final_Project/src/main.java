@@ -7,12 +7,13 @@ import java.util.Scanner;
 public class main {
     private static HashMap<Integer, team> data = new HashMap<>();
     private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
+    private static HashMap<Integer, team> trainingData = new HashMap<>();
     private static HashMap<Integer, team> testingData = new HashMap<>();
 
     public static void main(String[] args) {
-        process("Final_Project/data.csv");
+        process("data.csv");
+        trainingData = createTrainingData();
         testingData = createTestingData();
-        System.out.println("here");
     }
 
 
@@ -42,31 +43,30 @@ public class main {
                 String line = scanner.nextLine();
                 String[] values = line.split(",");
 
-                String name = values[0];
-                int season = Integer.parseInt(values[1]);
-                String abbreviation = values[2].replace("\"", "");
-                Integer playoffs = values[3].equals("TRUE") ? 1 : 0;
-                int wins = Integer.parseInt(values[4]);
+                int season = Integer.parseInt(values[0]);
+                String abbreviation = values[1].replace("\"", "");
+                Integer playoffs = values[2].equals("TRUE") ? 1 : 0;
+                int wins = Integer.parseInt(values[3]);
                 toCalculate.get("wins").add((double) wins);
-                int losses = Integer.parseInt(values[5]);
+                int losses = Integer.parseInt(values[4]);
                 toCalculate.get("losses").add((double) losses);
-                double avgFgPercent = Double.parseDouble(values[6]);
+                double avgFgPercent = Double.parseDouble(values[5]);
                 toCalculate.get("avgFgPercent").add(avgFgPercent);
-                double avgX3pPercent = Double.parseDouble(values[7]);
+                double avgX3pPercent = Double.parseDouble(values[6]);
                 toCalculate.get("avgX3pPercent").add(avgX3pPercent);
-                double avgFtPercent = Double.parseDouble(values[8]);
+                double avgFtPercent = Double.parseDouble(values[7]);
                 toCalculate.get("avgFtPercent").add(avgFtPercent);
-                double avgTrbPerGame = Double.parseDouble(values[9]);
+                double avgTrbPerGame = Double.parseDouble(values[8]);
                 toCalculate.get("avgTrbPerGame").add(avgTrbPerGame);
-                double avgAstPerGame = Double.parseDouble(values[10]);
+                double avgAstPerGame = Double.parseDouble(values[9]);
                 toCalculate.get("avgAstPerGame").add(avgAstPerGame);
-                double avgStlPerGame = Double.parseDouble(values[11]);
+                double avgStlPerGame = Double.parseDouble(values[10]);
                 toCalculate.get("avgStlPerGame").add(avgStlPerGame);
-                double avgBlkPerGame = Double.parseDouble(values[12]);
+                double avgBlkPerGame = Double.parseDouble(values[11]);
                 toCalculate.get("avgBlkPerGame").add(avgBlkPerGame);
-                double avgTovPerGame = Double.parseDouble(values[13]);
+                double avgTovPerGame = Double.parseDouble(values[12]);
                 toCalculate.get("avgTovPerGame").add(avgTovPerGame);
-                double avgPtsPerGame = Double.parseDouble(values[14]);
+                double avgPtsPerGame = Double.parseDouble(values[13]);
                 toCalculate.get("avgPtsPerGame").add(avgPtsPerGame);
 
                 team newTeam = new team(season, abbreviation, playoffs, wins, losses, avgFgPercent, avgX3pPercent, avgFtPercent, avgTrbPerGame, avgAstPerGame, avgStlPerGame, avgBlkPerGame, avgTovPerGame, avgPtsPerGame);
@@ -111,13 +111,23 @@ public class main {
         return stdDev;
     }
 
-    public static HashMap<Integer, team> createTestingData(){
+    public static HashMap<Integer, team> createTrainingData(){
         HashMap<Integer, team> testingData = new HashMap<>();
         Random r = new Random();
         r.setSeed(1257);
-        for (int i = 0; i < data.size() * .8; i++){
+        while(testingData.size() < data.size() * 0.8){
             int idx = r.nextInt(data.size());
             testingData.put(idx, data.get(idx));
+        }
+        return testingData;
+    }
+
+    public static HashMap<Integer, team> createTestingData(){
+        HashMap<Integer, team> testingData = new HashMap<>();
+        for(int i = 0; i < data.size(); i++){
+            if(!trainingData.containsKey(i)){
+                testingData.put(i, data.get(i));
+            }
         }
         return testingData;
     }
