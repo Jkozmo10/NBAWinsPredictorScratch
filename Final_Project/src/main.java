@@ -1,14 +1,20 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Scanner;
 
 public class main {
     private static HashMap<Integer, HashMap<String, team>> data = new HashMap<>();
+    private static HashMap<Integer, team> data2 = new HashMap<>();
     private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
+    private static HashMap<Integer, team> testingData = new HashMap<>();
+    private static int count = 0;
 
     public static void main(String[] args) {
         process("Final_Project/data.csv");
+        testingData = createTestingData();
+        System.out.println("here");
     }
     public static void process(String filename) {
         try {
@@ -40,6 +46,12 @@ public class main {
 
                 team newTeam = new team(season, abbreviation, playoffs, wins, losses, avgFgPercent, avgX3pPercent, avgFtPercent, avgTrbPerGame, avgAstPerGame, avgStlPerGame, avgBlkPerGame, avgTovPerGame, avgPtsPerGame);
                 System.out.println(newTeam);
+
+                //data2
+                data2.put(count, newTeam);
+                count += 1;
+
+                //data
                 // If the season key doesn't exist, add it
                 if (!data.containsKey(season)) {
                     data.put(season, new HashMap<String, team>());
@@ -80,6 +92,17 @@ public class main {
         double stdDev = Math.sqrt(variance);
 
         return stdDev;
+    }
+
+    public static HashMap<Integer, team> createTestingData(){
+        HashMap<Integer, team> testingData = new HashMap<>();
+        Random r = new Random();
+        r.setSeed(1257);
+        for (int i = 0; i < data2.size() * .8; i++){
+            int idx = r.nextInt(data2.size());
+            testingData.put(idx, data2.get(idx));
+        }
+        return testingData;
     }
 
 }
