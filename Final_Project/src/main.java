@@ -5,6 +5,7 @@ import java.util.Scanner;
 
 public class main {
     private static HashMap<Integer, HashMap<String, team>> data = new HashMap<>();
+    private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
 
     public static void main(String[] args) {
         process("Final_Project/data.csv");
@@ -23,7 +24,7 @@ public class main {
 
                 String name = values[0];
                 int season = Integer.parseInt(values[1]);
-                String abbreviation = values[2];
+                String abbreviation = values[2].replace("\"", "");
                 Integer playoffs = values[3].equals("TRUE") ? 1 : 0;
                 int wins = Integer.parseInt(values[4]);
                 int losses = Integer.parseInt(values[5]);
