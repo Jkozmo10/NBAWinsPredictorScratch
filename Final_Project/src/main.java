@@ -9,11 +9,13 @@ public class main {
     private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
     private static HashMap<Integer, team> trainingData = new HashMap<>();
     private static HashMap<Integer, team> testingData = new HashMap<>();
+    private static HashMap<Integer, HashMap<Integer, team>> crossValidation = new HashMap<>();
 
     public static void main(String[] args) {
         process("data.csv");
         trainingData = createTrainingData();
         testingData = createTestingData();
+        crossValidation = createCrossValidationSets();
     }
 
 
@@ -130,6 +132,21 @@ public class main {
             }
         }
         return testingData;
+    }
+
+    public static HashMap<Integer, HashMap<Integer, team>> createCrossValidationSets(){
+        HashMap<Integer, HashMap<Integer, team>> crossValidation = new HashMap<>(); //key: which chunk of the data, NOT data point id
+        Random r = new Random();
+        r.setSeed(1257);
+        for (int i = 0; i < 10; i++){
+            HashMap<Integer, team> chunk = new HashMap<>();
+            for(int j = 0; j < trainingData.size() * 0.1; j++){
+                int idx = r.nextInt(data.size());
+                chunk.put(idx, trainingData.get(idx));
+            }
+            crossValidation.put(i, chunk);
+        }
+        return crossValidation;
     }
 
 }
