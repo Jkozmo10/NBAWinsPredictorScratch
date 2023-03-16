@@ -16,6 +16,8 @@ public class main {
         testingData = createTestingData();
         System.out.println("here");
     }
+
+
     public static void process(String filename) {
         try {
             File file = new File(filename);
