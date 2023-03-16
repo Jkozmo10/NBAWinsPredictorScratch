@@ -1,6 +1,5 @@
 public class team {
-    private final String name;
-    private final String season;
+    private final Integer season;
     private final String abbreviation;
     private final Integer playoffs;
     private final Integer wins;
@@ -16,8 +15,7 @@ public class team {
     private final double avgPtsPerGame;
 
     // constructor
-    public team(String name, String season, String abbreviation, Integer playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
-        this.name = name;
+    public team(Integer season, String abbreviation, Integer playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
         this.season = season;
         this.abbreviation = abbreviation;
         this.playoffs = playoffs;
@@ -55,8 +53,24 @@ public class team {
 
     // getters and setters for all attributes
 
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return "team{" +
+                "season='" + season + '\'' +
+                ", abbreviation='" + abbreviation + '\'' +
+                ", playoffs=" + playoffs +
+                ", wins=" + wins +
+                ", losses=" + losses +
+                ", avgFgPercent=" + avgFgPercent +
+                ", avgX3pPercent=" + avgX3pPercent +
+                ", avgFtPercent=" + avgFtPercent +
+                ", avgTrbPerGame=" + avgTrbPerGame +
+                ", avgAstPerGame=" + avgAstPerGame +
+                ", avgStlPerGame=" + avgStlPerGame +
+                ", avgBlkPerGame=" + avgBlkPerGame +
+                ", avgTovPerGame=" + avgTovPerGame +
+                ", avgPtsPerGame=" + avgPtsPerGame +
+                '}';
     }
 
     public String getSeason() {
