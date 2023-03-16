@@ -8,7 +8,6 @@ public class main {
     private static HashMap<Integer, team> data = new HashMap<>();
     private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
     private static HashMap<Integer, team> testingData = new HashMap<>();
-    private static int count = 0;
 
     public static void main(String[] args) {
         process("Final_Project/data.csv");
@@ -116,9 +115,9 @@ public class main {
         HashMap<Integer, team> testingData = new HashMap<>();
         Random r = new Random();
         r.setSeed(1257);
-        for (int i = 0; i < data2.size() * .8; i++){
-            int idx = r.nextInt(data2.size());
-            testingData.put(idx, data2.get(idx));
+        for (int i = 0; i < data.size() * .8; i++){
+            int idx = r.nextInt(data.size());
+            testingData.put(idx, data.get(idx));
         }
         return testingData;
     }
