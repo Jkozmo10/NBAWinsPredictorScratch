@@ -10,7 +10,7 @@ Hashmap<Integer, HashMap<String, Team>>
 
     
 Things to do:
-    - normalize data
+- normalize data
     - pick training and testing data
     - pick 10 chunks and store them in hashmap
     - write the error calculation method for each chunk
