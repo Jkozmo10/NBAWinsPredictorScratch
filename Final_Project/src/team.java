@@ -67,6 +67,38 @@ public class team {
     }
 
 
+    public void normalize(double mean, double std, String attribute){
+        if(attribute.equals("avgFgPercent")){
+            this.avgFgPercent = (this.avgFtPercent - mean) / std;
+        }
+        if(attribute.equals("avgX3pPercent")){
+            this.avgX3pPercent = (this.avgX3pPercent - mean) / std;
+        }
+        if(attribute.equals("avgFtPercent")){
+            this.avgFtPercent = (this.avgFtPercent - mean) / std;
+        }
+        if(attribute.equals("avgTrbPerGame")){
+            this.avgTrbPerGame = (this.avgTrbPerGame - mean) / std;
+        }
+        if(attribute.equals("avgAstPerGame")){
+            this.avgAstPerGame = (this.avgAstPerGame - mean) / std;
+        }
+        if(attribute.equals("avgStlPerGame")){
+            this.avgStlPerGame = (this.avgStlPerGame - mean) / std;
+        }
+        if(attribute.equals("avgBlkPerGame")){
+            this.avgBlkPerGame = (this.avgBlkPerGame - mean) / std;
+        }
+        if(attribute.equals("avgTovPerGame")){
+            this.avgTovPerGame = (this.avgTovPerGame - mean) / std;
+        }
+        if(attribute.equals("avgPtsPerGame")){
+            this.avgPtsPerGame = (this.avgPtsPerGame - mean) / std;
+        }
+
+    }
+
+
     // getters and setters for all attributes
 
     @Override
