@@ -189,13 +189,11 @@ public class Main {
     }
 
     public static double classifyTeam(Collection<Team> closestTeams){
-        double numWins = 0.0;
         double totalWins = 0.0;
         for(Team t : closestTeams){
             totalWins += t.getWins();
         }
-        numWins = totalWins / closestTeams.size();
-        return numWins;
+        return totalWins / closestTeams.size();
     }
 
 
