@@ -14,7 +14,7 @@ public class Main {
         testingData = createTestingData();
         crossValidationSets = createCrossValidationSets();
         HashMap<Integer, Double> k_error = performCrossValidation();
-        System.out.println(k_error);
+        System.out.println(k_error.values());
     }
 
 
@@ -152,7 +152,7 @@ public class Main {
         double singleChunkError;
         double avgChunkError;
         double allChunkErrors;
-        for (int k = 2; k <= 20; k++){
+        for (int k = 2; k <= 30; k++){
             allChunkErrors = 0;
             for (Map.Entry<Integer, HashMap<Integer, Team>> chunk : crossValidationSets.entrySet()){
                 singleChunkError = 0;
