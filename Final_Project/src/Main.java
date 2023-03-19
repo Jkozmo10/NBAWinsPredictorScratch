@@ -9,10 +9,12 @@ public class Main {
     private static HashMap<Integer, HashMap<Integer, Team>> crossValidationSets = new HashMap<>();
 
     public static void main(String[] args) {
-        process("data.csv");
+        process("Final_Project/data.csv");
         trainingData = createTrainingData();
         testingData = createTestingData();
         crossValidationSets = createCrossValidationSets();
+        HashMap<Integer, Double> k_error = performCrossValidation();
+        System.out.println(k_error);
     }
 
 
@@ -69,7 +71,6 @@ public class Main {
                 toCalculate.get("avgPtsPerGame").add(avgPtsPerGame);
 
                 Team newTeam = new Team(season, abbreviation, playoffs, wins, losses, avgFgPercent, avgX3pPercent, avgFtPercent, avgTrbPerGame, avgAstPerGame, avgStlPerGame, avgBlkPerGame, avgTovPerGame, avgPtsPerGame);
-                System.out.println(newTeam);
                 // If the season key doesn't exist, add it
 
                 data.put(counter, newTeam);
@@ -174,7 +175,7 @@ public class Main {
         HashMap<Double, Team> closestTeams = new HashMap<>(); //double = distance to t, team = otherteam to t
         HashMap<Integer, Team> currentChunk = crossValidationSets.get(chunkIndex);
         for(Team otherTeam : currentChunk.values()){
-            double distance = t.calculateL2Distance(otherTeam);
+            double distance = t.calculateL1Distance(otherTeam);
             if(closestTeams.size() < k){
                 closestTeams.put(distance, otherTeam);
             } else{

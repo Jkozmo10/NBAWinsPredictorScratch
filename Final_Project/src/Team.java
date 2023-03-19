@@ -35,8 +35,6 @@ public class Team {
     public double calculateL2Distance(Team otherTeam) {
         double distance = Math.sqrt(
                 Math.pow(this.playoffs - otherTeam.getPlayoffs(), 2) +
-                        Math.pow(this.wins - otherTeam.getWins(), 2) +
-                        Math.pow(this.losses - otherTeam.getLosses(), 2) +
                         Math.pow(this.avgFgPercent - otherTeam.getAvgFgPercent(), 2) +
                         Math.pow(this.avgX3pPercent - otherTeam.getAvgX3pPercent(), 2) +
                         Math.pow(this.avgFtPercent - otherTeam.getAvgFtPercent(), 2) +
@@ -51,8 +49,6 @@ public class Team {
     }
     public double calculateL1Distance(Team otherTeam) {
         double distance = Math.abs(this.playoffs - otherTeam.getPlayoffs()) +
-                        Math.abs(this.wins - otherTeam.getWins()) +
-                        Math.abs(this.losses - otherTeam.getLosses()) +
                         Math.abs(this.avgFgPercent - otherTeam.getAvgFgPercent()) +
                         Math.abs(this.avgX3pPercent - otherTeam.getAvgX3pPercent()) +
                         Math.abs(this.avgFtPercent - otherTeam.getAvgFtPercent()) +
