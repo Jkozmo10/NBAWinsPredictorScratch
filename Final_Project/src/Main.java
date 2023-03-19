@@ -173,19 +173,24 @@ public class Main {
 
     public static Collection<Team> findKClosestTeams(int chunkIndex, Team t, int k){
         HashMap<Double, Team> closestTeams = new HashMap<>(); //double = distance to t, team = otherteam to t
-        HashMap<Integer, Team> currentChunk = crossValidationSets.get(chunkIndex);
-        for(Team otherTeam : currentChunk.values()){
-            double distance = t.calculateL1Distance(otherTeam);
-            if(closestTeams.size() < k){
-                closestTeams.put(distance, otherTeam);
-            } else{
-                double maximumDistance = Collections.max(closestTeams.keySet());
-                if (distance < maximumDistance){
-                    closestTeams.remove(maximumDistance);
+        HashMap<Integer, HashMap<Integer, Team>> crossValidationTraining = (HashMap<Integer, HashMap<Integer, Team>>) crossValidationSets.clone();
+        crossValidationTraining.remove(chunkIndex);
+        //HashMap<Integer, Team> currentChunk = crossValidationSets.get(chunkIndex);
+        for(HashMap<Integer, Team> chunks : crossValidationTraining.values()){
+            for(Team otherTeam : chunks.values()){
+                double distance = t.calculateL1Distance(otherTeam);
+                if(closestTeams.size() < k){
                     closestTeams.put(distance, otherTeam);
+                } else{
+                    double maximumDistance = Collections.max(closestTeams.keySet());
+                    if (distance < maximumDistance){
+                        closestTeams.remove(maximumDistance);
+                        closestTeams.put(distance, otherTeam);
+                    }
                 }
             }
         }
+
         return closestTeams.values();
     }
 
