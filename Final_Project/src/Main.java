@@ -1,21 +1,18 @@
 import java.io.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
-public class main {
-    private static HashMap<Integer, team> data = new HashMap<>();
+public class Main {
+    private static HashMap<Integer, Team> data = new HashMap<>();
     private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
-    private static HashMap<Integer, team> trainingData = new HashMap<>();
-    private static HashMap<Integer, team> testingData = new HashMap<>();
-    private static HashMap<Integer, HashMap<Integer, team>> crossValidation = new HashMap<>();
+    private static HashMap<Integer, Team> trainingData = new HashMap<>();
+    private static HashMap<Integer, Team> testingData = new HashMap<>();
+    private static HashMap<Integer, HashMap<Integer, Team>> crossValidationSets = new HashMap<>();
 
     public static void main(String[] args) {
         process("data.csv");
         trainingData = createTrainingData();
         testingData = createTestingData();
-        crossValidation = createCrossValidationSets();
+        crossValidationSets = createCrossValidationSets();
     }
 
 
@@ -71,7 +68,7 @@ public class main {
                 double avgPtsPerGame = Double.parseDouble(values[13]);
                 toCalculate.get("avgPtsPerGame").add(avgPtsPerGame);
 
-                team newTeam = new team(season, abbreviation, playoffs, wins, losses, avgFgPercent, avgX3pPercent, avgFtPercent, avgTrbPerGame, avgAstPerGame, avgStlPerGame, avgBlkPerGame, avgTovPerGame, avgPtsPerGame);
+                Team newTeam = new Team(season, abbreviation, playoffs, wins, losses, avgFgPercent, avgX3pPercent, avgFtPercent, avgTrbPerGame, avgAstPerGame, avgStlPerGame, avgBlkPerGame, avgTovPerGame, avgPtsPerGame);
                 System.out.println(newTeam);
                 // If the season key doesn't exist, add it
 
@@ -113,8 +110,8 @@ public class main {
         return stdDev;
     }
 
-    public static HashMap<Integer, team> createTrainingData(){
-        HashMap<Integer, team> testingData = new HashMap<>();
+    public static HashMap<Integer, Team> createTrainingData(){
+        HashMap<Integer, Team> testingData = new HashMap<>();
         Random r = new Random();
         r.setSeed(1257);
         while(testingData.size() < data.size() * 0.8){
@@ -124,8 +121,8 @@ public class main {
         return testingData;
     }
 
-    public static HashMap<Integer, team> createTestingData(){
-        HashMap<Integer, team> testingData = new HashMap<>();
+    public static HashMap<Integer, Team> createTestingData(){
+        HashMap<Integer, Team> testingData = new HashMap<>();
         for(int i = 0; i < data.size(); i++){
             if(!trainingData.containsKey(i)){
                 testingData.put(i, data.get(i));
@@ -134,12 +131,12 @@ public class main {
         return testingData;
     }
 
-    public static HashMap<Integer, HashMap<Integer, team>> createCrossValidationSets(){
-        HashMap<Integer, HashMap<Integer, team>> crossValidation = new HashMap<>(); //key: which chunk of the data, NOT data point id
+    public static HashMap<Integer, HashMap<Integer, Team>> createCrossValidationSets(){
+        HashMap<Integer, HashMap<Integer, Team>> crossValidation = new HashMap<>(); //key: which chunk of the data, NOT data point id
         Random r = new Random();
         r.setSeed(1257);
         for (int i = 0; i < 10; i++){
-            HashMap<Integer, team> chunk = new HashMap<>();
+            HashMap<Integer, Team> chunk = new HashMap<>();
             for(int j = 0; j < trainingData.size() * 0.1; j++){
                 int idx = r.nextInt(data.size());
                 chunk.put(idx, trainingData.get(idx));
@@ -148,5 +145,40 @@ public class main {
         }
         return crossValidation;
     }
+
+    public static HashMap<Integer, Double> performCrossValidation(){
+        HashMap<Integer, Double> errors = new HashMap<>(); //integer = k, double = average error
+        for (int k = 2; k <= 20; k++){
+            for (Map.Entry<Integer, HashMap<Integer, Team>> chunk : crossValidationSets.entrySet()){
+                for (Team team : chunk.getValue().values()){
+                    Collection<Team> closestTeams = findKClosestTeams(chunk.getKey(), team, k);
+                    //classify current team based on closestTeams
+                }
+                //find error
+                //add error to list
+            }
+            //average error of all chunks and add to Hashmap
+        }
+        return errors;
+    }
+
+    public static Collection<Team> findKClosestTeams(int chunkIndex, Team t, int k){
+        HashMap<Double, Team> closestTeams = new HashMap<>(); //double = distance to t, team = otherteam to t
+        HashMap<Integer, Team> currentChunk = crossValidationSets.get(chunkIndex);
+        for(Team otherTeam : currentChunk.values()){
+            double distance = t.calculateL2Distance(otherTeam);
+            if(closestTeams.size() < k){
+                closestTeams.put(distance, otherTeam);
+            } else{
+                double maximumDistance = Collections.max(closestTeams.keySet());
+                if (distance < maximumDistance){
+                    closestTeams.remove(maximumDistance);
+                    closestTeams.put(distance, otherTeam);
+                }
+            }
+        }
+        return closestTeams.values();
+    }
+
 
 }
