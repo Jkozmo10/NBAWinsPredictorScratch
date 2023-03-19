@@ -1,4 +1,4 @@
-public class team {
+public class Team {
     private Integer season;
     private String abbreviation;
     private Integer playoffs;
@@ -15,7 +15,7 @@ public class team {
     private double avgPtsPerGame;
 
     // constructor
-    public team(Integer season, String abbreviation, Integer playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
+    public Team(Integer season, String abbreviation, Integer playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
         this.season = season;
         this.abbreviation = abbreviation;
         this.playoffs = playoffs;
@@ -32,7 +32,7 @@ public class team {
         this.avgPtsPerGame = avgPtsPerGame;
     }
 
-    public double calculateL2Distance(team otherTeam) {
+    public double calculateL2Distance(Team otherTeam) {
         double distance = Math.sqrt(
                 Math.pow(this.playoffs - otherTeam.getPlayoffs(), 2) +
                         Math.pow(this.wins - otherTeam.getWins(), 2) +
@@ -49,7 +49,7 @@ public class team {
         );
         return distance;
     }
-    public double calculateL1Distance(team otherTeam) {
+    public double calculateL1Distance(Team otherTeam) {
         double distance = Math.abs(this.playoffs - otherTeam.getPlayoffs()) +
                         Math.abs(this.wins - otherTeam.getWins()) +
                         Math.abs(this.losses - otherTeam.getLosses()) +
