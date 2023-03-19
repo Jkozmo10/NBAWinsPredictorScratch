@@ -148,16 +148,23 @@ public class Main {
 
     public static HashMap<Integer, Double> performCrossValidation(){
         HashMap<Integer, Double> errors = new HashMap<>(); //integer = k, double = average error
+        double singleChunkError;
+        double avgChunkError;
+        double allChunkErrors;
         for (int k = 2; k <= 20; k++){
+            allChunkErrors = 0;
             for (Map.Entry<Integer, HashMap<Integer, Team>> chunk : crossValidationSets.entrySet()){
+                singleChunkError = 0;
                 for (Team team : chunk.getValue().values()){
                     Collection<Team> closestTeams = findKClosestTeams(chunk.getKey(), team, k);
                     double predictedNumWins = classifyTeam(closestTeams);
-                    double error = Math.abs(predictedNumWins - team.getWins());
+                    singleChunkError += Math.abs(predictedNumWins - team.getWins());
                 }
-                //find error
-                //add error to list
+                avgChunkError = singleChunkError / chunk.getValue().values().size();
+                allChunkErrors += avgChunkError;
+
             }
+            errors.put(k, allChunkErrors / 10);
             //average error of all chunks and add to Hashmap
         }
         return errors;
