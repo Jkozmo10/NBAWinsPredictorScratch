@@ -152,7 +152,8 @@ public class Main {
             for (Map.Entry<Integer, HashMap<Integer, Team>> chunk : crossValidationSets.entrySet()){
                 for (Team team : chunk.getValue().values()){
                     Collection<Team> closestTeams = findKClosestTeams(chunk.getKey(), team, k);
-                    //classify current team based on closestTeams
+                    double predictedNumWins = classifyTeam(closestTeams);
+                    double error = Math.abs(predictedNumWins - team.getWins());
                 }
                 //find error
                 //add error to list
@@ -178,6 +179,16 @@ public class Main {
             }
         }
         return closestTeams.values();
+    }
+
+    public static double classifyTeam(Collection<Team> closestTeams){
+        double numWins = 0.0;
+        double totalWins = 0.0;
+        for(Team t : closestTeams){
+            totalWins += t.getWins();
+        }
+        numWins = totalWins / closestTeams.size();
+        return numWins;
     }
 
 
