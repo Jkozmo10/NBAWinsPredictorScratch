@@ -1,7 +1,11 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+
+
 public class Team {
     private Integer season;
     private String abbreviation;
-    private Integer playoffs;
+    private double playoffs;
     private Integer wins;
     private Integer losses;
     private double avgFgPercent;
@@ -14,8 +18,10 @@ public class Team {
     private double avgTovPerGame;
     private double avgPtsPerGame;
 
+
+
     // constructor
-    public Team(Integer season, String abbreviation, Integer playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
+    public Team(Integer season, String abbreviation, double playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
         this.season = season;
         this.abbreviation = abbreviation;
         this.playoffs = playoffs;
@@ -34,7 +40,7 @@ public class Team {
 
     public double calculateL2Distance(Team otherTeam) {
         double distance = Math.sqrt(
-                        Math.pow(this.avgFgPercent - otherTeam.getAvgFgPercent(), 2) +
+                Math.pow(this.avgFgPercent - otherTeam.getAvgFgPercent(), 2) +
                         Math.pow(this.avgX3pPercent - otherTeam.getAvgX3pPercent(), 2) +
                         Math.pow(this.avgFtPercent - otherTeam.getAvgFtPercent(), 2) +
                         Math.pow(this.avgTrbPerGame - otherTeam.getAvgTrbPerGame(), 2) +
@@ -46,9 +52,10 @@ public class Team {
         );
         return distance;
     }
+
     public double calculateL1Distance(Team otherTeam) {
         double distance =
-                        Math.abs(this.avgFgPercent - otherTeam.getAvgFgPercent()) +
+                Math.abs(this.avgFgPercent - otherTeam.getAvgFgPercent()) +
                         Math.abs(this.avgX3pPercent - otherTeam.getAvgX3pPercent()) +
                         Math.abs(this.avgFtPercent - otherTeam.getAvgFtPercent()) +
                         Math.abs(this.avgTrbPerGame - otherTeam.getAvgTrbPerGame()) +
@@ -57,12 +64,14 @@ public class Team {
                         Math.abs(this.avgBlkPerGame - otherTeam.getAvgBlkPerGame()) +
                         Math.abs(this.avgTovPerGame - otherTeam.getAvgTovPerGame()) +
                         Math.abs(this.avgPtsPerGame - otherTeam.getAvgPtsPerGame()
-        );
+                        );
         return distance;
     }
 
 
-    public void normalize(double mean, double std, String attribute){
+
+
+    public void standardize(String attribute, double mean, double std){
         if(attribute.equals("avgFgPercent")){
             this.avgFgPercent = (this.avgFtPercent - mean) / std;
         }
@@ -119,8 +128,12 @@ public class Team {
         return abbreviation;
     }
 
-    public Integer getPlayoffs() {
+    public double getPlayoffs() {
         return playoffs;
+    }
+
+    public Integer getSeason() {
+        return season;
     }
 
     public Integer getWins() {
