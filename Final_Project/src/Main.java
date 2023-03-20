@@ -174,7 +174,9 @@ public class Main {
     public static Collection<Team> findKClosestTeams(int chunkIndex, Team t, int k){
         HashMap<Double, Team> closestTeams = new HashMap<>(); //double = distance to t, team = otherteam to t
         HashMap<Integer, HashMap<Integer, Team>> crossValidationTraining = (HashMap<Integer, HashMap<Integer, Team>>) crossValidationSets.clone();
-        crossValidationTraining.remove(chunkIndex);
+        if(chunkIndex != -1){
+            crossValidationTraining.remove(chunkIndex);
+        }
         //HashMap<Integer, Team> currentChunk = crossValidationSets.get(chunkIndex);
         for(HashMap<Integer, Team> chunks : crossValidationTraining.values()){
             for(Team otherTeam : chunks.values()){
@@ -200,6 +202,22 @@ public class Main {
             totalWins += t.getWins();
         }
         return totalWins / closestTeams.size();
+    }
+
+    public static double calculateTestingError(int k){
+        double totalError = 0.0;
+        double avgError;
+        double predictedWins;
+
+        for(Team team : testingData.values()){
+            Collection<Team> closestTeams = findKClosestTeams(-1, team, k);
+            predictedWins = classifyTeam(closestTeams);
+            totalError += Math.abs(team.getWins() - predictedWins);
+        }
+
+        avgError = totalError / testingData.values().size();
+
+        return avgError;
     }
 
 
