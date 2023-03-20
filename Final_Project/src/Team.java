@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-
-public class team {
+public class Team {
     private Integer season;
     private String abbreviation;
     private double playoffs;
@@ -17,10 +14,8 @@ public class team {
     private double avgTovPerGame;
     private double avgPtsPerGame;
 
-
-
     // constructor
-    public team(Integer season, String abbreviation, double playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
+    public Team(Integer season, String abbreviation, double playoffs, Integer wins, Integer losses, double avgFgPercent, double avgX3pPercent, double avgFtPercent, double avgTrbPerGame, double avgAstPerGame, double avgStlPerGame, double avgBlkPerGame, double avgTovPerGame, double avgPtsPerGame) {
         this.season = season;
         this.abbreviation = abbreviation;
         this.playoffs = playoffs;
@@ -37,9 +32,8 @@ public class team {
         this.avgPtsPerGame = avgPtsPerGame;
     }
 
-    public double calculateL2Distance(team otherTeam) {
+    public double calculateL2Distance(Team otherTeam) {
         double distance = Math.sqrt(
-                Math.pow(this.playoffs - otherTeam.getPlayoffs(), 2) +
                         Math.pow(this.avgFgPercent - otherTeam.getAvgFgPercent(), 2) +
                         Math.pow(this.avgX3pPercent - otherTeam.getAvgX3pPercent(), 2) +
                         Math.pow(this.avgFtPercent - otherTeam.getAvgFtPercent(), 2) +
@@ -52,8 +46,8 @@ public class team {
         );
         return distance;
     }
-    public double calculateL1Distance(team otherTeam) {
-        double distance = Math.abs(this.playoffs - otherTeam.getPlayoffs()) +
+    public double calculateL1Distance(Team otherTeam) {
+        double distance =
                         Math.abs(this.avgFgPercent - otherTeam.getAvgFgPercent()) +
                         Math.abs(this.avgX3pPercent - otherTeam.getAvgX3pPercent()) +
                         Math.abs(this.avgFtPercent - otherTeam.getAvgFtPercent()) +
