@@ -25,6 +25,8 @@ public class Main {
         crossValidationSets = createCrossValidationSets();
         HashMap<Integer, Double> k_error = performCrossValidation();
         System.out.println(k_error.values());
+        System.out.println(calculateTestingError(3));
+        System.out.println(calculateTestingError(6));
     }
 
     public static void process(String filename) {
@@ -106,11 +108,6 @@ public class Main {
             scanner.close();
             normalizeAll(); // normalize the data
             standardizeAll();
-            for (Integer key : data.keySet()) {
-                System.out.println("Key: " + key);
-                Team value = data.get(key);
-                System.out.println(value.toString());
-            }
 
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + filename);
