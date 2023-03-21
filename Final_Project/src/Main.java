@@ -26,8 +26,7 @@ public class Main {
         crossValidationSets = createCrossValidationSets();
         HashMap<Integer, Double> k_error = performCrossValidation();
         System.out.println(k_error.values());
-        System.out.println(calculateTestingError(3));
-        System.out.println(calculateTestingError(6));
+        System.out.println(calculateTestingError(1));
         //calculate2023Wins();
     }
 
