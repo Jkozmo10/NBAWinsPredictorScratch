@@ -20,7 +20,7 @@ Yaniv:
   Presentation - 1.5 hours
 Jeremy:
   Calculate error and final error - 1 hour
-	Presentation work - 1 hour
-	Coding and Formatting 2023 Season Projections - 1 hour
-	Report Writing - 2 hours
+  Presentation work - 1 hour
+  Coding and Formatting 2023 Season Projections - 1 hour
+  Report Writing - 2 hours
 
