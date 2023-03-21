@@ -8,6 +8,7 @@ public class Main {
     private static HashMap<Integer, Team> testingData = new HashMap<>();
     private static HashMap<Integer, HashMap<Integer, Team>> crossValidationSets = new HashMap<>();
     private static HashMap<String, HashMap<Integer, ArrayList<Double>>>  nameLater = new HashMap<>();
+    private static HashMap<Integer, Team> curSeasonData = new HashMap<>();
     private static ArrayList<Double> TTavgFgPercent = new ArrayList<>();
     private static ArrayList<Double> TTavgX3pPercent = new ArrayList<>();
     private static ArrayList<Double> TTavgFtPercent = new ArrayList<>();
@@ -20,6 +21,7 @@ public class Main {
 
     public static void main(String[] args) {
         process("Final_Project/data.csv");
+
         trainingData = createTrainingData();
         testingData = createTestingData();
         crossValidationSets = createCrossValidationSets();
@@ -27,6 +29,7 @@ public class Main {
         System.out.println(k_error.values());
         System.out.println(calculateTestingError(3));
         System.out.println(calculateTestingError(6));
+        //calculate2023Wins();
     }
 
     public static void process(String filename) {
@@ -242,6 +245,7 @@ public class Main {
         for(Team team : testingData.values()){
             Collection<Team> closestTeams = findKClosestTeams(-1, team, k);
             predictedWins = classifyTeam(closestTeams);
+            //System.out.println(team.getAbbreviation() + ": " + predictedWins);
             totalError += Math.abs(team.getWins() - predictedWins);
         }
 
@@ -301,5 +305,21 @@ public class Main {
             t.getValue().standardize("avgTovPerGame", calculateMean(TTavgTovPerGame), calculateStdDev(TTavgTovPerGame));
             t.getValue().standardize("avgPtsPerGame", calculateMean(TTavgPtsPerGame), calculateStdDev(TTavgPtsPerGame));
         }
+    }
+
+    public static void calculate2023Wins(){
+        //if you want to get win totals you should uncomment the print statement in the classifyTeam function
+        process("Final_Project/2023data.csv");
+        for(int i = 0; i < 30; i++){
+            testingData.put(i, data.get(i));
+        }
+        for(int i = 30; i < 1257; i++){
+            trainingData.put(i, data.get(i));
+        }
+        //this essentially puts the 2023 season as the testing data and everything else as the training data in one chunk
+        crossValidationSets.put(1, (HashMap<Integer, Team>) trainingData.clone());
+
+        System.out.println(calculateTestingError(2));
+
     }
 }
