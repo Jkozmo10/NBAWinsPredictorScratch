@@ -17,4 +17,9 @@ Liam:
 Yaniv:
   Cross validation methods - 2 hours
   Create distance functions - 1 hour
+Jeremy:
+  Calculate error and final error - 1 hour
+	Presentation work - 1 hour
+	Coding and Formatting 2023 Season Projections - 1 hour
+	Report Writing - 2 hours
 
