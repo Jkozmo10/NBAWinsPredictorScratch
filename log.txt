@@ -15,8 +15,9 @@ Liam:
   Reading in the data - 1 hour
   Normalize and standardize data - 3 hours
 Yaniv:
-  Cross validation methods - 2 hours
+  Cross validation methods - 1 hour
   Create distance functions - 1 hour
+  Presentation - 1.5 hours
 Jeremy:
   Calculate error and final error - 1 hour
 	Presentation work - 1 hour
