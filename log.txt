@@ -9,6 +9,6 @@ Jamie:
   Splitting data into training, testing, and cross validation sets - 1 hour
   Cross validation methods - 1 hour
 Liam:
-  Reading in the data and create Team class - 1 hour
-  Normalize and standardize data - 2 hours
-  Create distance method - 0.5 hour
+  Reading in the data - 1 hour
+  Normalize and standardize data - 3 hours
+
