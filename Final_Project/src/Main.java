@@ -3,11 +3,10 @@ import java.util.*;
 
 public class Main {
     private static HashMap<Integer, Team> data = new HashMap<>();
-    private static HashMap<String, ArrayList<Double>>  toCalculate = new HashMap<>();
     private static HashMap<Integer, Team> trainingData = new HashMap<>();
     private static HashMap<Integer, Team> testingData = new HashMap<>();
     private static HashMap<Integer, HashMap<Integer, Team>> crossValidationSets = new HashMap<>();
-    private static HashMap<String, HashMap<Integer, ArrayList<Double>>>  nameLater = new HashMap<>();
+    private static HashMap<String, HashMap<Integer, ArrayList<Double>>>  statPerSeason = new HashMap<>();
     private static HashMap<Integer, Team> curSeasonData = new HashMap<>();
     private static ArrayList<Double> TTavgFgPercent = new ArrayList<>();
     private static ArrayList<Double> TTavgX3pPercent = new ArrayList<>();
@@ -39,26 +38,16 @@ public class Main {
 
             // Skip the first line (header row)
             scanner.nextLine();
-            // Create key for the toCalculate
-            toCalculate.put("avgFgPercent", new ArrayList<>());
-            toCalculate.put("avgX3pPercent", new ArrayList<>());
-            toCalculate.put("avgFtPercent", new ArrayList<>());
-            toCalculate.put("avgTrbPerGame", new ArrayList<>());
-            toCalculate.put("avgAstPerGame", new ArrayList<>());
-            toCalculate.put("avgStlPerGame", new ArrayList<>());
-            toCalculate.put("avgBlkPerGame", new ArrayList<>());
-            toCalculate.put("avgTovPerGame", new ArrayList<>());
-            toCalculate.put("avgPtsPerGame", new ArrayList<>());
 
-            nameLater.put("avgFgPercent", new HashMap<>());
-            nameLater.put("avgX3pPercent", new HashMap<>());
-            nameLater.put("avgFtPercent", new HashMap<>());
-            nameLater.put("avgTrbPerGame", new HashMap<>());
-            nameLater.put("avgAstPerGame", new HashMap<>());
-            nameLater.put("avgStlPerGame", new HashMap<>());
-            nameLater.put("avgBlkPerGame", new HashMap<>());
-            nameLater.put("avgTovPerGame", new HashMap<>());
-            nameLater.put("avgPtsPerGame", new HashMap<>());
+            statPerSeason.put("avgFgPercent", new HashMap<>());
+            statPerSeason.put("avgX3pPercent", new HashMap<>());
+            statPerSeason.put("avgFtPercent", new HashMap<>());
+            statPerSeason.put("avgTrbPerGame", new HashMap<>());
+            statPerSeason.put("avgAstPerGame", new HashMap<>());
+            statPerSeason.put("avgStlPerGame", new HashMap<>());
+            statPerSeason.put("avgBlkPerGame", new HashMap<>());
+            statPerSeason.put("avgTovPerGame", new HashMap<>());
+            statPerSeason.put("avgPtsPerGame", new HashMap<>());
 
             Integer counter = 0;
 
@@ -67,39 +56,39 @@ public class Main {
                 String[] values = line.split(",");
 
                 int season = Integer.parseInt(values[0]);
-                if(!nameLater.get("avgFgPercent").containsKey(season)){
-                    nameLater.get("avgFgPercent").put(season, new ArrayList<>());
-                    nameLater.get("avgX3pPercent").put(season, new ArrayList<>());
-                    nameLater.get("avgFtPercent").put(season, new ArrayList<>());
-                    nameLater.get("avgTrbPerGame").put(season, new ArrayList<>());
-                    nameLater.get("avgAstPerGame").put(season, new ArrayList<>());
-                    nameLater.get("avgStlPerGame").put(season, new ArrayList<>());
-                    nameLater.get("avgBlkPerGame").put(season, new ArrayList<>());
-                    nameLater.get("avgTovPerGame").put(season, new ArrayList<>());
-                    nameLater.get("avgPtsPerGame").put(season, new ArrayList<>());
+                if(!statPerSeason.get("avgFgPercent").containsKey(season)){
+                    statPerSeason.get("avgFgPercent").put(season, new ArrayList<>());
+                    statPerSeason.get("avgX3pPercent").put(season, new ArrayList<>());
+                    statPerSeason.get("avgFtPercent").put(season, new ArrayList<>());
+                    statPerSeason.get("avgTrbPerGame").put(season, new ArrayList<>());
+                    statPerSeason.get("avgAstPerGame").put(season, new ArrayList<>());
+                    statPerSeason.get("avgStlPerGame").put(season, new ArrayList<>());
+                    statPerSeason.get("avgBlkPerGame").put(season, new ArrayList<>());
+                    statPerSeason.get("avgTovPerGame").put(season, new ArrayList<>());
+                    statPerSeason.get("avgPtsPerGame").put(season, new ArrayList<>());
                 }
                 String abbreviation = values[1];
                 Double playoffs = values[2].equals("TRUE") ? 1.0 : 0.0;
                 int wins = Integer.parseInt(values[3]);
                 int losses = Integer.parseInt(values[4]);
                 double avgFgPercent = Double.parseDouble(values[5]);
-                nameLater.get("avgFgPercent").get(season).add(avgFgPercent);
+                statPerSeason.get("avgFgPercent").get(season).add(avgFgPercent);
                 double avgX3pPercent = Double.parseDouble(values[6]);
-                nameLater.get("avgX3pPercent").get(season).add(avgX3pPercent);
+                statPerSeason.get("avgX3pPercent").get(season).add(avgX3pPercent);
                 double avgFtPercent = Double.parseDouble(values[7]);
-                nameLater.get("avgFtPercent").get(season).add(avgFtPercent);
+                statPerSeason.get("avgFtPercent").get(season).add(avgFtPercent);
                 double avgTrbPerGame = Double.parseDouble(values[8]);
-                nameLater.get("avgTrbPerGame").get(season).add(avgTrbPerGame);
+                statPerSeason.get("avgTrbPerGame").get(season).add(avgTrbPerGame);
                 double avgAstPerGame = Double.parseDouble(values[9]);
-                nameLater.get("avgAstPerGame").get(season).add(avgAstPerGame);
+                statPerSeason.get("avgAstPerGame").get(season).add(avgAstPerGame);
                 double avgStlPerGame = Double.parseDouble(values[10]);
-                nameLater.get("avgStlPerGame").get(season).add(avgStlPerGame);
+                statPerSeason.get("avgStlPerGame").get(season).add(avgStlPerGame);
                 double avgBlkPerGame = Double.parseDouble(values[11]);
-                nameLater.get("avgBlkPerGame").get(season).add(avgBlkPerGame);
+                statPerSeason.get("avgBlkPerGame").get(season).add(avgBlkPerGame);
                 double avgTovPerGame = Double.parseDouble(values[12]);
-                nameLater.get("avgTovPerGame").get(season).add(avgTovPerGame);
+                statPerSeason.get("avgTovPerGame").get(season).add(avgTovPerGame);
                 double avgPtsPerGame = Double.parseDouble(values[13]);
-                nameLater.get("avgPtsPerGame").get(season).add(avgPtsPerGame);
+                statPerSeason.get("avgPtsPerGame").get(season).add(avgPtsPerGame);
 
                 Team newTeam = new Team(season, abbreviation, playoffs, wins, losses, avgFgPercent, avgX3pPercent, avgFtPercent, avgTrbPerGame, avgAstPerGame, avgStlPerGame, avgBlkPerGame, avgTovPerGame, avgPtsPerGame);
                 // If the season key doesn't exist, add it
@@ -185,7 +174,7 @@ public class Main {
         double singleChunkError;
         double avgChunkError;
         double allChunkErrors;
-        for (int k = 2; k <= 30; k++){
+        for (int k = 1; k <= 30; k++){
             allChunkErrors = 0;
             for (Map.Entry<Integer, HashMap<Integer, Team>> chunk : crossValidationSets.entrySet()){
                 singleChunkError = 0;
@@ -245,7 +234,6 @@ public class Main {
         for(Team team : testingData.values()){
             Collection<Team> closestTeams = findKClosestTeams(-1, team, k);
             predictedWins = classifyTeam(closestTeams);
-            //System.out.println(team.getAbbreviation() + ": " + predictedWins);
             totalError += Math.abs(team.getWins() - predictedWins);
         }
 
@@ -279,7 +267,7 @@ public class Main {
     }
     public static void normalizeAll(){
         for(Map.Entry<Integer, Team> t : data.entrySet()){
-            normalize(nameLater, t.getValue());
+            normalize(statPerSeason, t.getValue());
 
         }
     }
