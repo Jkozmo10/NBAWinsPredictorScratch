@@ -1,4 +1,5 @@
 Group Meetings
+Initial Brainstorming (Jamie, Jeremy, Liam)
 Meeting #1 - 2 hours (Jamie, Jeremy, Liam)
 Meeting #2 - 2 hours (Jamie, Jeremy, Liam, Yaniv)
 Meeting #3 - 3 hours (Jamie, Jeremy, Liam, Yaniv)
@@ -8,6 +9,7 @@ Jamie:
   Cleaning data - 2 hours
   Splitting data into training, testing, and cross validation sets - 1 hour
   Cross validation methods - 1 hour
+  Bug fixes - 1 hour
 Liam:
   Reading in the data - 1 hour
   Normalize and standardize data - 3 hours
