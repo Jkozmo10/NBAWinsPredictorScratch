@@ -1,0 +1,10 @@
+Group Meetings
+Meeting #1 - 2 hours (Jamie, Jeremy, Liam)
+Meeting #2 - 2 hours (Jamie, Jeremy, Liam, Yaniv)
+Meeting #3 - 3 hours (Jamie, Jeremy, Liam, Yaniv)
+
+Individual Work
+Jamie:
+  Cleaning data - 2 hours
+  Splitting data into training, testing, and cross validation sets - 1 hour
+  Cross validation methods - 1 hour
