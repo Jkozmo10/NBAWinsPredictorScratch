@@ -11,4 +11,7 @@ Jamie:
 Liam:
   Reading in the data - 1 hour
   Normalize and standardize data - 3 hours
+Yaniv:
+  Cross validation methods - 2 hours
+  Create distance functions - 1 hour
 
