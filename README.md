@@ -1,21 +1,7 @@
 # CSC466
 
-Predict the number of wins for each team every year using K-Nearest Neighbors
+This project is an implementation of k-nearest neighbors in Java to predict wins for NBA teams. It was done with Jamie Luna, Yaniv Sagy, and Liam Quanch.
 
-Team object - String, ArrayList<Double>
-    - all of the stats
+## Overview
 
-Hashmap<Integer, HashMap<String, Team>>
-          -year           teams for that year
-
-    
-Things to do:
-- normalize data (liam)
-    - pick training and testing data (jamie)
-    - pick 10 chunks and store them in hashmap (jamie)
-    - write the error calculation method for each chunk (jeremy)
-    - calculate average errors for chunks on a specific k 
-    - iterate over k
-    - after iterating over all k,find lowest error and pick that k
-    - testing data calculations
-    - error again to see how accurate the algorithm is
+All of our code is located in the src directory, and our summary and results are located in Final_Report.pdf.
