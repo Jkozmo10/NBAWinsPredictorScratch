@@ -1,4 +1,4 @@
-# CSC466
+# NBA Wins Predictor
 
 This project is an implementation of k-nearest neighbors in Java to predict wins for NBA teams. It was done with Jamie Luna, Yaniv Sagy, and Liam Quanch.
 
